@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import EventBus from '@/EventBus';
 import * as monaco from 'monaco-editor';
 
 export default {
@@ -16,8 +17,10 @@ export default {
         }
     },
     methods: {
-        async run() {
+        run() {
             this.code = this.editor.getValue();
+            window.Lego = JSON.parse(this.code);
+            EventBus.$emit('run-lego-config');
         }
     },
     created() {
