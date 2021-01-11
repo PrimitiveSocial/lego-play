@@ -7,11 +7,13 @@
 
 <script>
 import * as monaco from 'monaco-editor';
+import legoConfig from 'raw-loader!./../lego.config.txt';
 
 export default {
     data: () => {
         return {
             editor: null,
+            code: ''
         }
     },
     methods: {
@@ -20,8 +22,9 @@ export default {
         }
     },
     mounted() {
+        this.code = legoConfig;
         this.editor = monaco.editor.create(document.getElementById('editor'), {
-            value: 'console.log("Hello, world")',
+            value: this.code,
             language: 'javascript',
             renderLineHighlight: 'none',
             scrollBeyondLastLine: false,
