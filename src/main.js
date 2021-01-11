@@ -1,10 +1,15 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from 'vue';
+import App from './App.vue';
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
-import "tailwindcss/tailwind.css"
+// Lego configuration
+import VueLego from "@primitivesocial/lego";
+Vue.use(VueLego);
+
+// Tailwind configuration
+import "tailwindcss/tailwind.css";
 
 new Vue({
   render: h => h(App),
-}).$mount('#app')
+}).$mount('#app');

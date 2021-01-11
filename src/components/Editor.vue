@@ -7,25 +7,28 @@
 
 <script>
 import * as monaco from 'monaco-editor';
-import legoConfig from 'raw-loader!./../lego.config.txt';
 
 export default {
     data: () => {
         return {
             editor: null,
-            code: ''
+            code: null
         }
     },
     methods: {
-        run() {
-            window.console.log(this.editor.getValue());
+        async run() {
+            this.code = this.editor.getValue();
         }
     },
+    created() {
+        window.Lego = require('../lego.config');
+    },
     mounted() {
-        this.code = legoConfig;
+        this.code = JSON.stringify(JSON.parse(JSON.stringify(window.Lego)),null,2);
+
         this.editor = monaco.editor.create(document.getElementById('editor'), {
             value: this.code,
-            language: 'javascript',
+            language: 'json',
             renderLineHighlight: 'none',
             scrollBeyondLastLine: false,
             disableLayerHinting: true,
