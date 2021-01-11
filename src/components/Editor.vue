@@ -1,13 +1,12 @@
 <template>
-    <div class="h-full">
+    <div class="h-full p-4">
         <div id="editor" class="h-full"></div>
     </div>
 </template>
 
 <script>
-//import EventBus from '@/EventBus';
+import EventBus from '@/EventBus';
 import * as monaco from 'monaco-editor';
-import EventBus from "@/EventBus";
 
 export default {
     data: () => {
@@ -32,24 +31,22 @@ export default {
             theme: 'vs-dark',
             value: this.code,
             language: 'json',
+            fontSize: 14,
             renderLineHighlight: 'none',
             scrollBeyondLastLine: false,
             disableLayerHinting: true,
-            overviewRulerBorder: false,
+            overviewRulerBorder: true,
+            fixedOverflowWidgets: true,
+            automaticLayout: true,
             minimap: {
                 enabled: false
             },
             scrollbar: {
-                verticalSliderSize: 5,
-                horizontalScrollbarSize: 5,
-                useShadows: false
+                verticalSliderSize: 12,
+                horizontalScrollbarSize: 12,
+                useShadows: true
             }
         });
-
-        this.$nextTick(function () {
-            let contentHeight = Math.min(1000, this.editor.getContentHeight());
-            document.getElementById('editor').style.height = `${contentHeight}px`;
-        })
 
         EventBus.$on('run-lego-config', () => {
             this.run();

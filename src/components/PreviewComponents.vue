@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="p-4">
         <div class="mb-6">
             <text-input placeholder="Enter name" v-model="name"></text-input>
         </div>
