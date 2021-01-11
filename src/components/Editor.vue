@@ -1,6 +1,8 @@
 <template>
     <div class="h-full">
-        <button @click="run">Run</button>
+        <primary-button @click="run" class="w-full text-center mb-4">
+            <icon name="play" class="w-4 h-4 inline-block"></icon> Run
+        </primary-button>
         <div id="editor" class="h-full"></div>
     </div>
 </template>
