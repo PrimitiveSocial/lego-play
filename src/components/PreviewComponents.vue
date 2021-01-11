@@ -103,7 +103,7 @@ export default {
         }
     },
     mounted() {
-        EventBus.$on('run-lego-config', () => {
+        EventBus.$on('update-preview-components', () => {
             this.updateComponentsClasses();
         });
     }

@@ -1,15 +1,13 @@
 <template>
     <div class="h-full">
-        <primary-button @click="run" class="w-full text-center mb-4">
-            <icon name="play" class="w-4 h-4 inline-block"></icon> Run
-        </primary-button>
         <div id="editor" class="h-full"></div>
     </div>
 </template>
 
 <script>
-import EventBus from '@/EventBus';
+//import EventBus from '@/EventBus';
 import * as monaco from 'monaco-editor';
+import EventBus from "@/EventBus";
 
 export default {
     data: () => {
@@ -22,7 +20,6 @@ export default {
         run() {
             this.code = this.editor.getValue();
             window.Lego = JSON.parse(this.code);
-            EventBus.$emit('run-lego-config');
         }
     },
     created() {
@@ -32,6 +29,7 @@ export default {
         this.code = JSON.stringify(JSON.parse(JSON.stringify(window.Lego)),null,2);
 
         this.editor = monaco.editor.create(document.getElementById('editor'), {
+            theme: 'vs-dark',
             value: this.code,
             language: 'json',
             renderLineHighlight: 'none',
@@ -47,6 +45,16 @@ export default {
                 useShadows: false
             }
         });
+
+        this.$nextTick(function () {
+            let contentHeight = Math.min(1000, this.editor.getContentHeight());
+            document.getElementById('editor').style.height = `${contentHeight}px`;
+        })
+
+        EventBus.$on('run-lego-config', () => {
+            this.run();
+            EventBus.$emit('update-preview-components');
+        })
     }
 }
 </script>
