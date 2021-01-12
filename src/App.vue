@@ -1,6 +1,6 @@
 <template>
     <div id="app" class="bg-white w-full font-sans antialiased">
-        <div class="border-b flex justify-between items-center p-4">
+        <div class="border-b flex justify-between items-center p-4" ref="header">
             <div>
                 <span class="font-bold text-black text-2xl uppercase">Lego</span>
                 <span class="font-bold text-blue-400 text-2xl uppercase">Play</span>
@@ -13,7 +13,7 @@
                 </button>
             </div>
         </div>
-        <div class="flex">
+        <div class="flex" ref="editor-previews-container">
             <div class="w-3/5 pr-2 bg-white">
                 <editor></editor>
             </div>
@@ -38,7 +38,17 @@ export default {
     methods: {
         run() {
             EventBus.$emit('run-lego-config');
+        },
+        setEditorHeight() {
+            let documentHeight = document.documentElement.scrollHeight;
+            let headerHeight = this.$refs['header'].clientHeight;
+
+            this.$refs['editor-previews-container'].style.height = (documentHeight - headerHeight) + 'px';
         }
+    },
+    mounted() {
+        this.setEditorHeight();
+        //window.addEventListener("resize", this.setEditorHeight);
     }
 }
 </script>
